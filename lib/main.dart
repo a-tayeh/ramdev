@@ -3,37 +3,19 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:ramdev/auth_checker.dart';
+import 'package:provider/provider.dart';
+import 'package:ramdev/models/user.dart';
+import 'services/auth_service.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Welcome to Flutter',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'WELCOME TO RAMDEV',
-            style: TextStyle(
-                fontSize: 25,
-                fontFamily: 'PoiretOne',
-                fontWeight: FontWeight.bold,
-                letterSpacing: 3.0),
-          ),
-          backgroundColor: Colors.amber[400],
-        ),
-        body: Center(
-          child: Text('In progress',
-              style: TextStyle(fontSize: 25, color: Colors.white)),
-        ),
-        backgroundColor: Colors.black,
-        floatingActionButton: FloatingActionButton(
-          child: Text('Check in!'),
-          onPressed: () {},
-          backgroundColor: Colors.amber[400],
-        ),
-      ),
+    return StreamProvider<User>.value(
+      child: AuthChecker(),
+      value: AuthService().user,
     );
   }
 }
